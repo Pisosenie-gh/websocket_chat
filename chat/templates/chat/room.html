@@ -63,6 +63,7 @@
                 console.log(data.data)
                 document.getElementById('username').innerText = data.data.host.username
                 for (let mess of data.data.messages) {
+                    document.getElementById('chat-log').value += mess.text
                     console.log(mess.text)
                 }
 

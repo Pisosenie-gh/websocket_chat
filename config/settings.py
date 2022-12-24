@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'djangochannelsrestframework',
     'chat',
+    'Oauth',
+    'rest_framework_simplejwt',
+
 ]
 
 MIDDLEWARE = [
@@ -114,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTH_USER_MODEL = 'Oauth.User'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -138,6 +141,26 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-REST_FRAMEWORK = {}
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 DJANGO_CHANNELS_REST_API = {}
 
+AUTH_PWD_MODULE="django.contrib.auth.password_validation."
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": f"{AUTH_PWD_MODULE}UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": f"{AUTH_PWD_MODULE}MinimumLengthValidator",
+    },
+    {
+        "NAME": f"{AUTH_PWD_MODULE}CommonPasswordValidator",
+    },
+    {
+        "NAME": f"{AUTH_PWD_MODULE}NumericPasswordValidator",
+    },
+]
